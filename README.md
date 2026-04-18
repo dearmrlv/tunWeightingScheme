@@ -1,6 +1,13 @@
 # DATE'25 "Timing-Driven Global Placement by Efficient Critical Path Extraction"
 We provide the implementation of the method proposed in the paper. It is built upon the popular open-source infrastructure [DREAMPlace](https://github.com/limbo018/DREAMPlace).
 
+## Highlights of the update
+
+- Optional HeteroSTA backend for faster timing analysis through the `timer_engine` configuration.
+- Improved determinism in the pin-to-pin attraction flow, which addresses the nondeterministic behavior fixed in the merged updates.
+- Ready-to-run benchmark JSONs for both the original OpenTimer-based flow and the HeteroSTA-based flow.
+- Thanks to Zizheng Guo (`gzz@pku.edu.cn`) and [Shenglu Hua](https://github.com/shengluhua) for providing these updates.
+
 ## Build with Docker
 
 We highly recommend the use of Docker to enable a smooth environment configuration.
@@ -60,6 +67,7 @@ The following steps are borrowed from [DREAMPlace](https://github.com/limbo018/D
 Run our method on case superblue1 of ICCAD2015 timing-driven placement contest:
 
 ```
+case=superblue1
 python dreamplace/Placer.py test/iccad2015.pin2pin/$case.json
 ```
 
@@ -68,6 +76,13 @@ Or you can run all 8 cases by:
 ```
 cd install
 ./run.sh
+```
+
+If you have already built and installed the project, you can skip the rebuild step in the helper script:
+
+```
+cd install
+SKIP_BUILD=1 ./run.sh
 ```
 
 The iccad2015 contest's official evaluation kit can be found at [Google Drive link](https://drive.google.com/file/d/1BAjEfWxN2dZOtt2-qlgF-qO7D-KHJthX/view?usp=sharing).
@@ -82,7 +97,7 @@ You can get a 5.7x end-to-end speedup by switching the timer to HeteroSTA.
 
 1. Obtain a free license by visiting the website [HeteroSTA](https://heterosta.pkueda.org.cn/#getting-started), then set it as an environment variable "HeteroSTA_Lic".
 
-2. Modify the json file to enable HeteroSTA by changing the following parameters in the json file `/DATE25-TDP/test/iccad2015.pin2pin/$case.json`:
+2. Modify the JSON file to enable HeteroSTA by changing the following parameters in `/DATE25-TDP/test/iccad2015.pin2pin/$case.json`, or directly use the preconfigured files under `test/iccad2015.hs/`.
 
    | JSON parameter | VALUE                                       |
    |----------------|---------------------------------------------|
@@ -92,9 +107,11 @@ You can get a 5.7x end-to-end speedup by switching the timer to HeteroSTA.
 3. Run our method integrated with HeteroSTA on case superblue1 of ICCAD2015 timing-driven placement contest:
 
     ```
+    case=superblue1
     cd install
-    python dreamplace/Placer.py test/iccad2015.pin2pin/$case.json
+    python dreamplace/Placer.py test/iccad2015.hs/$case.json
     ```
 
+4. To keep the legacy behavior, configurations without an explicit `timer_engine` continue to use OpenTimer by default.
 
   
