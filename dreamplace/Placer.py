@@ -53,8 +53,8 @@ def place(params):
     timer = None
     if params.timing_opt_flag or params.timing_eval_flag:
         tt = time.time()
-        # Get timer engine from parameters,default to "heterosta"
-        timer_engine = getattr(params,'timer_engine','heterosta')
+        # Preserve legacy behavior unless a config explicitly opts into HeteroSTA.
+        timer_engine = getattr(params,'timer_engine','opentimer')
         timer = Timer.Timer(timer_engine=timer_engine)
         timer(params, placedb)
         if timer_engine == "opentimer" :

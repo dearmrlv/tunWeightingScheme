@@ -12,7 +12,7 @@ class Timer(object):
     """
     @brief The timer python class. The timer supports both Opentimer and HeteroSTA engines.
     """
-    def __init__(self,timer_engine = "heterosta"):
+    def __init__(self,timer_engine = "opentimer"):
         """The initialization of the timer python class.
         In fact we do not prefer using timer directly in python, even in
         the timing-driven mode. Ideally, everything should smoothly goes
