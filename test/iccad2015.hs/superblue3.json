@@ -4,7 +4,7 @@
 "verilog_input" : "benchmarks/iccad2015.hs/superblue3/superblue3.v", 
 "early_lib_input" : "benchmarks/iccad2015.hs/superblue3/superblue3_Early.lib",
 "late_lib_input" : "benchmarks/iccad2015.hs/superblue3/superblue3_Late.lib",
-"sdc_input" : "benchmarks/iccad2015.hs/superblue3/superblue3.ot.sdc",
+"sdc_input" : "benchmarks/iccad2015.hs/superblue3/superblue3.hs.sdc",
 "gpu" : 1,
 "num_bins_x" : 2048,
 "num_bins_y" : 2048,
@@ -38,5 +38,5 @@
 "max_net_weight" : 256,
 "enable_net_weighting" : 1,
 "pin2pin_net_weighting": 1,
-"timer_engine" : "opentimer"
+"timer_engine" : "heterosta"
 }

@@ -49,10 +49,10 @@ The following steps are borrowed from [DREAMPlace](https://github.com/limbo018/D
    make install
    ```
 
-6. Get benchmarks: download the cases here: https://drive.google.com/file/d/1xeauwLR9lOxnYvsK2JGPSY0INQh8VuE4/view?usp=sharing. Unzip the package and put it in the following directory:
+6. Get benchmarks: download the cases here: https://drive.google.com/file/d/1HsAW_qcRje_-Ex1anWqAEQOKpGeCxpZa/view?usp=sharing. Unzip the package and put it in the following directory:
 
    ```
-   install/benchmarks/iccad2015.ot
+   install/benchmarks/iccad2015.hs
    ```
 
 ## Test
@@ -75,3 +75,26 @@ The iccad2015 contest's official evaluation kit can be found at [Google Drive li
 ## Caution
 
 The default configuration for Critical Path Extraction uses 8 threads to accommodate various CPU cores and RAM capacities, impacting only the execution speed without affecting timing performance. For reproducing the speeds reported in the paper, adjust the thread count to 52 as specified in `DATE25-TDP/thirdparty/OpenTimer/ot/timer/path.cpp` at line 426.
+
+## Switch the timer to HeteroSTA
+
+You can get a 5.7x end-to-end speedup by switching the timer to HeteroSTA.
+
+1. Obtain a free license by visiting the website [HeteroSTA](https://heterosta.pkueda.org.cn/#getting-started), then set it as an environment variable "HeteroSTA_Lic".
+
+2. Modify the json file to enable HeteroSTA by changing the following parameters in the json file `/DATE25-TDP/test/iccad2015.pin2pin/$case.json`:
+
+   | JSON parameter | VALUE                                       |
+   |----------------|---------------------------------------------|
+   | timer_engine   | heterosta                                   |
+   | sdc_input      | benchmarks/iccad2015.hs/$case/$case.hs.sdc |
+
+3. Run our method integrated with HeteroSTA on case superblue1 of ICCAD2015 timing-driven placement contest:
+
+    ```
+    cd install
+    python dreamplace/Placer.py test/iccad2015.pin2pin/$case.json
+    ```
+
+
+  
